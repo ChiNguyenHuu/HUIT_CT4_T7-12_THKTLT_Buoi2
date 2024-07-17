@@ -1,0 +1,6 @@
+﻿  Bai1.cpp
+D:\HK3 nam 3\HUIT_CT4_T7-12_THKTLT_Buoi2\2001210757_NguyenHuuChi\2001210757_NguyenHuuChi\Bai1.cpp(7,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+D:\HK3 nam 3\HUIT_CT4_T7-12_THKTLT_Buoi2\2001210757_NguyenHuuChi\2001210757_NguyenHuuChi\Bai1.cpp(135,9): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\HK3 nam 3\HUIT_CT4_T7-12_THKTLT_Buoi2\2001210757_NguyenHuuChi\2001210757_NguyenHuuChi\Bai1.cpp(154,13): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\HK3 nam 3\HUIT_CT4_T7-12_THKTLT_Buoi2\2001210757_NguyenHuuChi\2001210757_NguyenHuuChi\Bai1.cpp(172,13): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  2001210757_NguyenHuuChi.vcxproj -> D:\HK3 nam 3\HUIT_CT4_T7-12_THKTLT_Buoi2\2001210757_NguyenHuuChi\x64\Debug\2001210757_NguyenHuuChi.exe
