@@ -1,6 +1,9 @@
 ﻿//#include <stdio.h>
-//#include <stdlib.h> // for rand() function
-//#include <time.h>   // for srand() function
+//#include <stdlib.h>
+//#include <time.h>
+//#include <limits.h>
+//
+//const int MAX_SIZE = 20; // Kích thước tối đa cho mảng
 //
 //// Hàm để tạo mảng một chiều ngẫu nhiên
 //void createRandomArray(int a[], int n) {
@@ -10,32 +13,7 @@
 //    }
 //}
 //
-//// Hàm để kiểm tra số chẵn
-//int isEven(int number) {
-//    return number % 2 == 0;
-//}
-//
-//// Hàm để tạo mảng chỉ chứa số chẵn từ mảng ban đầu
-//void createEvenArray(int a[], int n, int evenArray[], int& evenCount) {
-//    evenCount = 0;
-//    for (int i = 0; i < n; ++i) {
-//        if (isEven(a[i])) {
-//            evenArray[evenCount++] = a[i];
-//        }
-//    }
-//}
-//
-//// Hàm tìm kiếm tuyến tính
-//int linearSearch(int a[], int n, int x) {
-//    for (int i = 0; i < n; ++i) {
-//        if (a[i] == x) {
-//            return i; // Trả về vị trí đầu tiên tìm thấy x trong mảng
-//        }
-//    }
-//    return -1; // Trả về -1 nếu không tìm thấy x trong mảng
-//}
-//
-//// Hàm để in mảng
+//// Hàm để in mảng ra màn hình
 //void printArray(int a[], int n) {
 //    for (int i = 0; i < n; ++i) {
 //        printf("%d ", a[i]);
@@ -43,160 +21,337 @@
 //    printf("\n");
 //}
 //
-//// Hàm để hoán đổi giá trị
-//void swap(int* xp, int* yp) {
-//    int temp = *xp;
-//    *xp = *yp;
-//    *yp = temp;
+//// Hàm để kiểm tra số nguyên tố
+//int isPrime(int number) {
+//    if (number < 2) {
+//        return 0; // Không phải số nguyên tố
+//    }
+//    for (int i = 2; i * i <= number; ++i) {
+//        if (number % i == 0) {
+//            return 0; // Không phải số nguyên tố
+//        }
+//    }
+//    return 1; // Là số nguyên tố
 //}
 //
-//// Hàm sắp xếp mảng theo Interchange Sort (Đổi chỗ)
-//void interchangeSort(int a[], int n) {
-//    for (int i = 0; i < n - 1; ++i) {
-//        for (int j = i + 1; j < n; ++j) {
-//            if (a[i] > a[j]) {
-//                swap(&a[i], &a[j]);
+//// Bài 1: Liệt kê các số nguyên tố nhỏ hơn n
+//void findPrimesLessThan(int n) {
+//    int foundPrime = 0;
+//    printf("Cac so nguyen to nho hon %d: ", n);
+//    for (int i = 2; i < n; ++i) {
+//        if (isPrime(i)) {
+//            printf("%d ", i);
+//            foundPrime = 1;
+//        }
+//    }
+//    if (!foundPrime) {
+//        printf("Khong ton tai so nguyen to nao nho hon %d.", n);
+//    }
+//    printf("\n");
+//}
+//
+//// Hàm tính tổng các phần tử có chữ số đầu là chữ số lẻ
+//int sumOfFirstDigitOdd(int a[], int n) {
+//    int sum = 0;
+//    for (int i = 0; i < n; ++i) {
+//        int firstDigit = abs(a[i]);
+//        while (firstDigit >= 10) {
+//            firstDigit /= 10;
+//        }
+//        if (firstDigit % 2 != 0) {
+//            sum += a[i];
+//        }
+//    }
+//    return sum;
+//}
+//
+//// Hàm đếm số lần xuất hiện của các phần tử trong mảng
+//void countOccurrences(int a[], int n) {
+//    printf("So lan xuat hien cua cac phan tu trong mang:\n");
+//    for (int i = 0; i < n; ++i) {
+//        int count = 1;
+//        if (a[i] != -1) {
+//            for (int j = i + 1; j < n; ++j) {
+//                if (a[i] == a[j]) {
+//                    count++;
+//                    a[j] = -1; // Đánh dấu phần tử đã được đếm
+//                }
 //            }
+//            printf("%d xuat hien %d lan\n", a[i], count);
 //        }
 //    }
 //}
 //
-//// Hàm tìm kiếm nhị phân
-//int binarySearch(int a[], int left, int right, int x) {
-//    while (left <= right) {
-//        int mid = left + (right - left) / 2;
-//        if (a[mid] == x) {
-//            return mid; // Trả về vị trí x nếu tìm thấy
-//        }
-//        else if (a[mid] < x) {
-//            left = mid + 1;
+//// Hàm sắp xếp mảng có số chẵn tăng dần, số lẻ giảm dần
+//void sortEvenOdd(int a[], int n) {
+//    int evenCount = 0;
+//    int oddCount = 0;
+//    int even[MAX_SIZE], odd[MAX_SIZE];
+//
+//    // Phân loại phần tử chẵn và lẻ
+//    for (int i = 0; i < n; ++i) {
+//        if (a[i] % 2 == 0) {
+//            even[evenCount++] = a[i];
 //        }
 //        else {
-//            right = mid - 1;
+//            odd[oddCount++] = a[i];
 //        }
 //    }
-//    return -1; // Trả về -1 nếu không tìm thấy x trong mảng
-//}
 //
-//// Hàm sắp xếp mảng theo Selection Sort
-//void selectionSort(int a[], int n) {
-//    int minIndex;
-//    for (int i = 0; i < n - 1; ++i) {
-//        minIndex = i;
-//        for (int j = i + 1; j < n; ++j) {
-//            if (a[j] < a[minIndex]) {
-//                minIndex = j;
+//    // Sắp xếp mảng chẵn tăng dần
+//    for (int i = 0; i < evenCount - 1; ++i) {
+//        for (int j = i + 1; j < evenCount; ++j) {
+//            if (even[i] > even[j]) {
+//                int temp = even[i];
+//                even[i] = even[j];
+//                even[j] = temp;
 //            }
 //        }
-//        if (minIndex != i) {
-//            swap(&a[i], &a[minIndex]);
+//    }
+//
+//    // Sắp xếp mảng lẻ giảm dần
+//    for (int i = 0; i < oddCount - 1; ++i) {
+//        for (int j = i + 1; j < oddCount; ++j) {
+//            if (odd[i] < odd[j]) {
+//                int temp = odd[i];
+//                odd[i] = odd[j];
+//                odd[j] = temp;
+//            }
+//        }
+//    }
+//
+//    // Gộp mảng đã sắp xếp
+//    int index = 0;
+//    for (int i = 0; i < evenCount; ++i) {
+//        a[index++] = even[i];
+//    }
+//    for (int i = 0; i < oddCount; ++i) {
+//        a[index++] = odd[i];
+//    }
+//}
+//
+//// Hàm tìm dãy con giảm dài nhất trong mảng
+//void longestDecreasingSubarray(int a[], int n) {
+//    int maxLen = 1;
+//    int currentLen = 1;
+//    int endIndex = 0;
+//
+//    for (int i = 1; i < n; ++i) {
+//        if (a[i] < a[i - 1]) {
+//            currentLen++;
+//        }
+//        else {
+//            if (currentLen > maxLen) {
+//                maxLen = currentLen;
+//                endIndex = i - 1;
+//            }
+//            currentLen = 1;
+//        }
+//    }
+//
+//    // Kiểm tra dãy con cuối cùng
+//    if (currentLen > maxLen) {
+//        maxLen = currentLen;
+//        endIndex = n - 1;
+//    }
+//
+//    // In ra dãy con giảm dài nhất
+//    printf("Day con giam dai nhat trong mang la: ");
+//    for (int i = endIndex - maxLen + 1; i <= endIndex; ++i) {
+//        printf("%d ", a[i]);
+//    }
+//    printf("\n");
+//}
+//
+//// Hàm tìm số nhỏ thứ 2 trong mảng
+//int secondSmallest(int a[], int n) {
+//    if (n < 2) {
+//        printf("Mang khong du so phan tu de tim so nho thu 2.\n");
+//        return -1;
+//    }
+//
+//    int first, second;
+//    first = second = INT_MAX;
+//
+//    for (int i = 0; i < n; ++i) {
+//        if (a[i] < first) {
+//            second = first;
+//            first = a[i];
+//        }
+//        else if (a[i] < second && a[i] != first) {
+//            second = a[i];
+//        }
+//    }
+//
+//    return second;
+//}
+//
+//// Hàm kiểm tra xem một số có chứa các chữ số của x không
+//int containsDigits(int number, int x) {
+//    while (x > 0) {
+//        int digit = x % 10;
+//        int found = 0;
+//        int temp = number;
+//        while (temp > 0) {
+//            if (temp % 10 == digit) {
+//                found = 1;
+//                break;
+//            }
+//            temp /= 10;
+//        }
+//        if (!found) {
+//            return 0;
+//        }
+//        x /= 10;
+//    }
+//    return 1;
+//}
+//
+//// Hàm sắp xếp mảng sao cho các phần tử chẵn tăng dần, các phần tử lẻ giữ nguyên vị trí
+//void sortEvenAscending(int a[], int n) {
+//    int evenIdx = 0;
+//    int temp[MAX_SIZE];
+//
+//    // Lọc các số chẵn vào mảng tạm
+//    for (int i = 0; i < n; ++i) {
+//        if (a[i] % 2 == 0) {
+//            temp[evenIdx++] = a[i];
+//        }
+//    }
+//
+//    // Sắp xếp mảng chẵn
+//    for (int i = 0; i < evenIdx - 1; ++i) {
+//        for (int j = i + 1; j < evenIdx; ++j) {
+//            if (temp[i] > temp[j]) {
+//                int swap = temp[i];
+//                temp[i] = temp[j];
+//                temp[j] = swap;
+//            }
+//        }
+//    }
+//
+//    // Gán lại các
+//    int idx = 0;
+//    for (int i = 0; i < n; ++i) {
+//        if (a[i] % 2 == 0) {
+//            a[i] = temp[idx++];
 //        }
 //    }
 //}
 //
-//// Hàm sắp xếp mảng theo Quick Sort
-//void quickSort(int a[], int left, int right) {
-//    if (left < right) {
-//        int pivot = a[right];
-//        int i = left - 1;
-//        for (int j = left; j <= right - 1; ++j) {
-//            if (a[j] < pivot) {
-//                ++i;
-//                swap(&a[i], &a[j]);
-//            }
-//        }
-//        swap(&a[i + 1], &a[right]);
-//        int pi = i + 1;
+//// Hàm sắp xếp mảng sao cho số lẻ ở đầu mảng, số chẵn ở cuối mảng
+//void sortOddEven(int a[], int n) {
+//    int left = 0, right = n - 1;
 //
-//        quickSort(a, left, pi - 1);
-//        quickSort(a, pi + 1, right);
+//    while (left < right) {
+//        // Tìm phần tử lẻ đầu tiên từ bên trái
+//        while (a[left] % 2 != 0 && left < right) {
+//            left++;
+//        }
+//        // Tìm phần tử chẵn đầu tiên từ bên phải
+//        while (a[right] % 2 == 0 && left < right) {
+//            right--;
+//        }
+//        // Hoán đổi để đưa số lẻ về đầu mảng, số chẵn về cuối mảng
+//        if (left < right) {
+//            int temp = a[left];
+//            a[left] = a[right];
+//            a[right] = temp;
+//            left++;
+//            right--;
+//        }
 //    }
+//}
+//
+//// Hàm hiển thị menu chức năng
+//void displayMenu() {
+//    printf("\n===== MENU =====\n");
+//    printf("1. In mảng ngẫu nhiên\n");
+//    printf("2. Liệt kê các số nguyên tố nhỏ hơn n\n");
+//    printf("3. Tính tổng các phần tử có chữ số đầu là chữ số lẻ\n");
+//    printf("4. Đếm số lần xuất hiện của các phần tử trong mảng\n");
+//    printf("5. Sắp xếp mảng có số chẵn tăng dần, số lẻ giảm dần\n");
+//    printf("6. Tìm dãy con giảm dài nhất trong mảng\n");
+//    printf("7. Tìm số nhỏ thứ 2 trong mảng\n");
+//    printf("8. Hiển thị các phần tử trong mảng chứa các chữ số của x\n");
+//    printf("9. Sắp xếp mảng sao cho số chẵn tăng dần, giữ nguyên vị trí số lẻ\n");
+//    printf("10. Sắp xếp mảng sao cho số lẻ ở đầu, số chẵn ở cuối\n");
+//    printf("0. Thoát\n");
+//    printf("================\n");
+//    printf("Nhập lựa chọn của bạn: ");
 //}
 //
 //int main() {
-//    const int MAX_SIZE = 20; // Kích thước tối đa cho mảng
 //    int a[MAX_SIZE];
 //    int n = 15 + rand() % 16; // Số phần tử từ 15 đến 30
 //
-//    int choice;
-//    int x;
+//    createRandomArray(a, n);
 //
-//    while (1) {
-//        printf("\n===== MENU =====\n");
-//        printf("1. Tao mang ngau nhien\n");
-//        printf("2. Tao mang chi chua so chan\n");
-//        printf("3. Tim kiem phan tu trong mang (Linear Search)\n");
-//        printf("4. Sap xep mang tang dan (Interchange Sort)\n");
-//        printf("5. Tim kiem phan tu trong mang (Binary Search)\n");
-//        printf("6. Sap xep mang tang dan (Selection Sort)\n");
-//        printf("7. Sap xep mang tang dan (Quick Sort)\n");
-//        printf("8. Thoat\n");
-//        printf("Nhap lua chon cua ban: ");
+//    int choice;
+//    do {
+//        displayMenu();
 //        scanf("%d", &choice);
 //
 //        switch (choice) {
 //        case 1:
-//            createRandomArray(a, n);
 //            printf("Mang ngau nhien da tao: ");
 //            printArray(a, n);
 //            break;
 //        case 2:
-//        {
-//            int evenArray[MAX_SIZE];
-//            int evenCount;
-//            createEvenArray(a, n, evenArray, evenCount);
-//            printf("Mang chi chua so chan: ");
-//            printArray(evenArray, evenCount);
-//        }
-//        break;
-//        case 3:
-//            printf("Nhap gia tri can tim trong mang: ");
-//            scanf("%d", &x);
-//            {
-//                int pos = linearSearch(a, n, x);
-//                if (pos != -1) {
-//                    printf("Tim thay %d tai vi tri %d (tinh tu 0).\n", x, pos);
-//                }
-//                else {
-//                    printf("Khong tim thay %d trong mang.\n", x);
-//                }
-//            }
+//            findPrimesLessThan(n);
 //            break;
+//        case 3: {
+//            int sumFirstDigitOdd = sumOfFirstDigitOdd(a, n);
+//            printf("Tong cac phan tu co chu so dau la chu so le: %d\n", sumFirstDigitOdd);
+//            break;
+//        }
 //        case 4:
-//            interchangeSort(a, n);
-//            printf("Mang sau khi sap xep tang dan: ");
-//            printArray(a, n);
+//            countOccurrences(a, n);
 //            break;
 //        case 5:
-//            printf("Nhap gia tri can tim trong mang da sap xep tang dan: ");
-//            scanf("%d", &x);
-//            {
-//                int pos = binarySearch(a, 0, n - 1, x);
-//                if (pos != -1) {
-//                    printf("Tim thay %d tai vi tri %d (tinh tu 0) sau khi sap xep tang.\n", x, pos);
-//                }
-//                else {
-//                    printf("Khong tim thay %d trong mang sau khi sap xep tang.\n", x);
-//                }
-//            }
+//            sortEvenOdd(a, n);
+//            printf("Mang sau khi sap xep co so chan tang dan, so le giam dan: ");
+//            printArray(a, n);
 //            break;
 //        case 6:
-//            selectionSort(a, n);
-//            printf("Mang sau khi sap xep tang dan bang Selection Sort: ");
+//            longestDecreasingSubarray(a, n);
+//            break;
+//        case 7: {
+//            int secondMin = secondSmallest(a, n);
+//            if (secondMin != -1) {
+//                printf("So nho thu 2 trong mang la: %d\n", secondMin);
+//            }
+//            break;
+//        }
+//        case 8: {
+//            int x = 28;
+//            printf("Cac phan tu trong mang chua cac chu so cua %d:\n", x);
+//            for (int i = 0; i < n; ++i) {
+//                if (containsDigits(a[i], x)) {
+//                    printf("%d ", a[i]);
+//                }
+//            }
+//            printf("\n");
+//            break;
+//        }
+//        case 9:
+//            sortEvenAscending(a, n);
+//            printf("Mang sau khi sap xep cac so chan tang dan, giu nguyen vi tri cac so le: ");
 //            printArray(a, n);
 //            break;
-//        case 7:
-//            quickSort(a, 0, n - 1);
-//            printf("Mang sau khi sap xep tang dan bang Quick Sort: ");
+//        case 10:
+//            sortOddEven(a, n);
+//            printf("Mang sau khi sap xep so le o dau, so chan o cuoi: ");
 //            printArray(a, n);
 //            break;
-//        case 8:
+//        case 0:
 //            printf("Thoat chuong trinh.\n");
-//            return 0;
+//            break;
 //        default:
 //            printf("Lua chon khong hop le. Vui long chon lai.\n");
 //        }
-//    }
+//    } while (choice != 0);
 //
 //    return 0;
 //}
+//
